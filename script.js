@@ -31,20 +31,6 @@ const animations = [
 
 /* =========================================================
    SHORTS
-=========================================================
-
-   IMPORTANT:
-
-   Put only the YouTube VIDEO ID here.
-
-   Example:
-
-   https://www.youtube.com/shorts/ABC123
-
-   becomes:
-
-   video: "ABC123"
-
 ========================================================= */
 
 const shorts = [
@@ -62,6 +48,7 @@ const shorts = [
     }
 
     // Add more Shorts below
+
 ];
 
 
@@ -157,6 +144,43 @@ const btsGrid =
 
 
 /* =========================================================
+   INTERSECTION OBSERVER
+========================================================= */
+
+const observerOptions = {
+
+    threshold: 0.08,
+
+    rootMargin:
+        "0px 0px -40px 0px"
+
+};
+
+
+const observer =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add("active");
+
+                    observer.unobserve(
+                        entry.target
+                    );
+
+                }
+
+            });
+
+        },
+        observerOptions
+    );
+
+
+/* =========================================================
    FEATURED ANIMATIONS
 ========================================================= */
 
@@ -168,7 +192,8 @@ function renderAnimations() {
 
     animations.forEach(animation => {
 
-        const card = document.createElement("article");
+        const card =
+            document.createElement("article");
 
         card.className =
             "animation-card reveal";
@@ -206,6 +231,7 @@ function renderAnimations() {
                 </p>
 
             </div>
+
         `;
 
         animationsGrid.appendChild(card);
@@ -243,15 +269,6 @@ function renderShorts() {
         card.className =
             "short-card reveal";
 
-        /*
-            YouTube automatically provides the thumbnail.
-
-            maxresdefault is attempted first.
-
-            The fallback changes it to hqdefault
-            if the first image doesn't exist.
-        */
-
         card.innerHTML = `
 
             <div class="short-thumbnail">
@@ -261,7 +278,8 @@ function renderShorts() {
                     alt="${short.title}"
                     loading="lazy"
                     onerror="
-                        this.src='https://img.youtube.com/vi/${short.video}/hqdefault.jpg'
+                        this.onerror=null;
+                        this.src='https://img.youtube.com/vi/${short.video}/hqdefault.jpg';
                     "
                 >
 
@@ -326,7 +344,9 @@ function renderUpcomingProjects() {
                     src="${project.image}"
                     alt="${project.title}"
                     loading="lazy"
-                    onerror="this.style.display='none'"
+                    onerror="
+                        this.style.display='none';
+                    "
                 >
 
                 <span class="status-badge">
@@ -346,6 +366,7 @@ function renderUpcomingProjects() {
                 </p>
 
             </div>
+
         `;
 
         upcomingGrid.appendChild(card);
@@ -377,6 +398,9 @@ function renderBehindTheScenes() {
 
         let mediaHTML = "";
 
+
+        /* VIDEO */
+
         if (item.mediaType === "video") {
 
             mediaHTML = `
@@ -401,7 +425,12 @@ function renderBehindTheScenes() {
 
             `;
 
-        } else {
+        }
+
+
+        /* IMAGE */
+
+        else {
 
             mediaHTML = `
 
@@ -414,6 +443,7 @@ function renderBehindTheScenes() {
             `;
 
         }
+
 
         card.innerHTML = `
 
@@ -447,58 +477,6 @@ function renderBehindTheScenes() {
 
 
 /* =========================================================
-   INTERSECTION OBSERVER
-========================================================= */
-
-const observerOptions = {
-
-    threshold: 0.08,
-
-    rootMargin:
-        "0px 0px -40px 0px"
-
-};
-
-const observer =
-    new IntersectionObserver(
-        entries => {
-
-            entries.forEach(entry => {
-
-                if (entry.isIntersecting) {
-
-                    entry.target.classList.add(
-                        "active"
-                    );
-
-                    observer.unobserve(
-                        entry.target
-                    );
-
-                }
-
-            });
-
-        },
-        observerOptions
-    );
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-            observer.unobserve(entry.target);
-        }
-    });
-}, {
-    threshold: 0.05,
-    rootMargin: "0px 0px -20px 0px"
-});
-
-document.querySelectorAll('.reveal').forEach(el => {
-    observer.observe(el);
-});
-/* =========================================================
    INITIALIZE CONTENT
 ========================================================= */
 
@@ -512,180 +490,204 @@ renderBehindTheScenes();
 
 
 /* =========================================================
+   OBSERVE STATIC REVEAL ELEMENTS
+========================================================= */
+
+document
+    .querySelectorAll(".reveal")
+    .forEach(element => {
+
+        observer.observe(element);
+
+    });
+
+
+/* =========================================================
    STAR BACKGROUND
 ========================================================= */
 
 const canvas =
     document.getElementById("star-canvas");
 
-const ctx =
-    canvas.getContext("2d");
 
-let stars = [];
+if (canvas) {
 
+    const ctx =
+        canvas.getContext("2d");
 
-function resizeCanvas() {
-
-    canvas.width =
-        window.innerWidth;
-
-    canvas.height =
-        window.innerHeight;
-
-    initStars();
-
-}
+    let stars = [];
 
 
-class Star {
+    function resizeCanvas() {
 
-    constructor() {
+        canvas.width =
+            window.innerWidth;
 
-        this.x =
-            Math.random() *
-            canvas.width;
+        canvas.height =
+            window.innerHeight;
 
-        this.y =
-            Math.random() *
-            canvas.height;
-
-        this.size =
-            Math.random() * 1.8;
-
-        this.opacity =
-            Math.random();
-
-        this.speed =
-            Math.random() * 0.05 + 0.01;
-
-        this.growing =
-            Math.random() > 0.5;
+        initStars();
 
     }
 
 
-    update() {
+    class Star {
 
-        if (this.growing) {
-
-            this.opacity += 0.005;
-
-            if (this.opacity >= 1) {
-
-                this.growing = false;
-
-            }
-
-        } else {
-
-            this.opacity -= 0.005;
-
-            if (this.opacity <= 0.2) {
-
-                this.growing = true;
-
-            }
-
-        }
-
-
-        this.y -= this.speed;
-
-
-        if (this.y < 0) {
-
-            this.y =
-                canvas.height;
+        constructor() {
 
             this.x =
                 Math.random() *
                 canvas.width;
 
+            this.y =
+                Math.random() *
+                canvas.height;
+
+            this.size =
+                Math.random() * 1.8;
+
+            this.opacity =
+                Math.random();
+
+            this.speed =
+                Math.random() * 0.05 + 0.01;
+
+            this.growing =
+                Math.random() > 0.5;
+
+        }
+
+
+        update() {
+
+            if (this.growing) {
+
+                this.opacity += 0.005;
+
+                if (this.opacity >= 1) {
+
+                    this.growing = false;
+
+                }
+
+            }
+
+            else {
+
+                this.opacity -= 0.005;
+
+                if (this.opacity <= 0.2) {
+
+                    this.growing = true;
+
+                }
+
+            }
+
+
+            this.y -= this.speed;
+
+
+            if (this.y < 0) {
+
+                this.y =
+                    canvas.height;
+
+                this.x =
+                    Math.random() *
+                    canvas.width;
+
+            }
+
+        }
+
+
+        draw() {
+
+            ctx.fillStyle =
+                `rgba(255,255,255,${this.opacity})`;
+
+            ctx.beginPath();
+
+            ctx.arc(
+                this.x,
+                this.y,
+                this.size,
+                0,
+                Math.PI * 2
+            );
+
+            ctx.fill();
+
         }
 
     }
 
 
-    draw() {
+    function initStars() {
 
-        ctx.fillStyle =
-            `rgba(255,255,255,${this.opacity})`;
+        stars = [];
 
-        ctx.beginPath();
+        const area =
+            canvas.width *
+            canvas.height;
 
-        ctx.arc(
-            this.x,
-            this.y,
-            this.size,
+        const starCount =
+            Math.floor(area / 6000);
+
+
+        for (
+            let i = 0;
+            i < starCount;
+            i++
+        ) {
+
+            stars.push(
+                new Star()
+            );
+
+        }
+
+    }
+
+
+    function animateStars() {
+
+        ctx.clearRect(
             0,
-            Math.PI * 2
+            0,
+            canvas.width,
+            canvas.height
         );
 
-        ctx.fill();
 
-    }
+        stars.forEach(star => {
 
-}
+            star.update();
+
+            star.draw();
+
+        });
 
 
-function initStars() {
-
-    stars = [];
-
-    const area =
-        canvas.width *
-        canvas.height;
-
-    const starCount =
-        Math.floor(area / 6000);
-
-    for (
-        let i = 0;
-        i < starCount;
-        i++
-    ) {
-
-        stars.push(
-            new Star()
+        requestAnimationFrame(
+            animateStars
         );
 
     }
 
-}
 
-
-function animateStars() {
-
-    ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
+    window.addEventListener(
+        "resize",
+        resizeCanvas
     );
 
-    stars.forEach(star => {
 
-        star.update();
+    resizeCanvas();
 
-        star.draw();
-
-    });
-
-    requestAnimationFrame(
-        animateStars
-    );
+    animateStars();
 
 }
-
-
-window.addEventListener(
-    "resize",
-    resizeCanvas
-);
-
-resizeCanvas();
-
-animateStars();
 
 
 /* =========================================================
@@ -703,36 +705,43 @@ const mobileMenu =
     );
 
 
-mobileMenuButton.addEventListener(
-    "click",
-    () => {
+if (
+    mobileMenuButton &&
+    mobileMenu
+) {
 
-        mobileMenu.classList.toggle(
-            "hidden"
-        );
+    mobileMenuButton.addEventListener(
+        "click",
+        () => {
 
-    }
-);
+            mobileMenu.classList.toggle(
+                "hidden"
+            );
+
+        }
+    );
 
 
-/* Close mobile menu after clicking a link */
+    /* Close mobile menu after clicking a link */
 
-document
-    .querySelectorAll(".mobile-link")
-    .forEach(link => {
+    document
+        .querySelectorAll(".mobile-link")
+        .forEach(link => {
 
-        link.addEventListener(
-            "click",
-            () => {
+            link.addEventListener(
+                "click",
+                () => {
 
-                mobileMenu.classList.add(
-                    "hidden"
-                );
+                    mobileMenu.classList.add(
+                        "hidden"
+                    );
 
-            }
-        );
+                }
+            );
 
-    });
+        });
+
+}
 
 
 /* =========================================================
@@ -745,26 +754,32 @@ const navbar =
     );
 
 
-window.addEventListener(
-    "scroll",
-    () => {
+if (navbar) {
 
-        if (window.scrollY > 40) {
+    window.addEventListener(
+        "scroll",
+        () => {
 
-            navbar.classList.add(
-                "scrolled"
-            );
+            if (window.scrollY > 40) {
 
-        } else {
+                navbar.classList.add(
+                    "scrolled"
+                );
 
-            navbar.classList.remove(
-                "scrolled"
-            );
+            }
+
+            else {
+
+                navbar.classList.remove(
+                    "scrolled"
+                );
+
+            }
 
         }
+    );
 
-    }
-);
+}
 
 
 /* =========================================================
@@ -787,91 +802,131 @@ const formStatus =
     );
 
 
-form.addEventListener(
-    "submit",
-    async event => {
+if (
+    form &&
+    submitButton &&
+    formStatus
+) {
 
-        event.preventDefault();
+    form.addEventListener(
+        "submit",
+        async event => {
 
-        submitButton.disabled = true;
-
-        submitButton.querySelector(
-            "span"
-        ).textContent = "Sending...";
-
-        formStatus.classList.add(
-            "hidden"
-        );
+            event.preventDefault();
 
 
-        const data =
-            new FormData(form);
+            submitButton.disabled = true;
 
 
-        try {
-
-            const response =
-                await fetch(
-                    form.action,
-                    {
-                        method: "POST",
-
-                        body: data,
-
-                        headers: {
-                            Accept:
-                                "application/json"
-                        }
-                    }
+            const buttonText =
+                submitButton.querySelector(
+                    "span"
                 );
 
 
-            if (response.ok) {
+            if (buttonText) {
 
-                form.reset();
-
-                formStatus.textContent =
-                    "Message sent! I'll get back to you soon. 🌙";
-
-                formStatus.className =
-                    "text-sm text-center text-green-400";
-
-            } else {
-
-                throw new Error(
-                    "Form submission failed"
-                );
+                buttonText.textContent =
+                    "Sending...";
 
             }
 
-        } catch (error) {
 
-            formStatus.textContent =
-                "Something went wrong. Please try again.";
+            formStatus.classList.add(
+                "hidden"
+            );
 
-            formStatus.className =
-                "text-sm text-center text-red-400";
 
-        } finally {
+            const data =
+                new FormData(form);
 
-            submitButton.disabled = false;
 
-            submitButton.querySelector(
-                "span"
-            ).textContent =
-                "Send Message";
+            try {
+
+                const response =
+                    await fetch(
+                        form.action,
+                        {
+                            method: "POST",
+
+                            body: data,
+
+                            headers: {
+                                Accept:
+                                    "application/json"
+                            }
+                        }
+                    );
+
+
+                if (response.ok) {
+
+                    form.reset();
+
+
+                    formStatus.textContent =
+                        "Message sent! I'll get back to you soon. 🌙";
+
+
+                    formStatus.className =
+                        "text-sm text-center text-green-400";
+
+                }
+
+                else {
+
+                    throw new Error(
+                        "Form submission failed"
+                    );
+
+                }
+
+            }
+
+            catch (error) {
+
+                formStatus.textContent =
+                    "Something went wrong. Please try again.";
+
+
+                formStatus.className =
+                    "text-sm text-center text-red-400";
+
+            }
+
+            finally {
+
+                submitButton.disabled = false;
+
+
+                if (buttonText) {
+
+                    buttonText.textContent =
+                        "Send Message";
+
+                }
+
+            }
 
         }
+    );
 
-    }
-);
+}
 
 
 /* =========================================================
    CURRENT YEAR
 ========================================================= */
 
-document.getElementById(
-    "current-year"
-).textContent =
-    new Date().getFullYear();
+const currentYear =
+    document.getElementById(
+        "current-year"
+    );
+
+
+if (currentYear) {
+
+    currentYear.textContent =
+        new Date().getFullYear();
+
+}
