@@ -8,16 +8,13 @@
 
     <meta
         name="description"
-        content="Mooncananimate is the animation portfolio of Moonfros, creating 2D animations, short films, experiments and stories."
+        content="Mooncananimate is the animation portfolio of Moonfros, featuring 2D animation, short films, experiments and behind-the-scenes work."
     >
 
-    <!-- Google AdSense -->
-    <script async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1902480282396672"
-        crossorigin="anonymous">
-    </script>
+    <meta name="theme-color" content="#0f172a">
 
-    <meta name="google-adsense-account" content="ca-pub-1902480282396672">
+    <!-- Favicon -->
+    <link rel="icon" href="assets/logo/moon-logo.svg" type="image/svg+xml">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,7 +40,7 @@
                 extend: {
                     colors: {
                         moon: {
-                            950: '#080d18',
+                            950: '#080d19',
                             900: '#0f172a',
                             800: '#1e293b',
                             700: '#334155',
@@ -58,9 +55,8 @@
                     },
 
                     animation: {
-                        'float': 'float 6s ease-in-out infinite',
-                        'float-slow': 'floatSlow 9s ease-in-out infinite',
-                        'pulse-glow': 'pulseGlow 4s ease-in-out infinite'
+                        float: 'float 6s ease-in-out infinite',
+                        pulseGlow: 'pulseGlow 4s ease-in-out infinite'
                     },
 
                     keyframes: {
@@ -69,25 +65,18 @@
                                 transform: 'translateY(0)'
                             },
                             '50%': {
-                                transform: 'translateY(-18px)'
-                            }
-                        },
-
-                        floatSlow: {
-                            '0%, 100%': {
-                                transform: 'translateY(0) rotate(-2deg)'
-                            },
-                            '50%': {
-                                transform: 'translateY(-10px) rotate(2deg)'
+                                transform: 'translateY(-15px)'
                             }
                         },
 
                         pulseGlow: {
                             '0%, 100%': {
-                                boxShadow: '0 0 20px rgba(129,140,248,.25)'
+                                opacity: '1',
+                                boxShadow: '0 0 20px #818cf8'
                             },
                             '50%': {
-                                boxShadow: '0 0 40px rgba(129,140,248,.5)'
+                                opacity: '0.8',
+                                boxShadow: '0 0 40px #818cf8'
                             }
                         }
                     }
@@ -96,2467 +85,672 @@
         }
     </script>
 
-    <style>
-
-        /* ================================
-           BASE
-        ================================= */
-
-        :root {
-            color-scheme: dark;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background: #0f172a;
-            color: #f8fafc;
-            overflow-x: hidden;
-        }
-
-        ::selection {
-            background: #facc15;
-            color: #0f172a;
-        }
-
-        /* ================================
-           SCROLLBAR
-        ================================= */
-
-        ::-webkit-scrollbar {
-            width: 9px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #080d18;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #334155;
-            border-radius: 999px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #818cf8;
-        }
-
-        /* ================================
-           NAVIGATION
-        ================================= */
-
-        .glass-nav {
-            background: rgba(15, 23, 42, 0.72);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-bottom: 1px solid rgba(255,255,255,.06);
-        }
-
-        /* ================================
-           CARDS
-        ================================= */
-
-        .glass-card {
-            background: rgba(30, 41, 59, .55);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,.07);
-            transition:
-                transform .35s ease,
-                border-color .35s ease,
-                box-shadow .35s ease;
-        }
-
-        .glass-card:hover {
-            transform: translateY(-7px);
-            border-color: rgba(129,140,248,.45);
-            box-shadow: 0 18px 40px rgba(0,0,0,.22);
-        }
-
-        /* ================================
-           STAR CANVAS
-        ================================= */
-
-        #star-canvas {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        /* ================================
-           REVEAL ANIMATION
-        ================================= */
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(28px);
-            transition:
-                opacity .75s ease,
-                transform .75s ease;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ================================
-           MARKER
-        ================================= */
-
-        .marker-underline {
-            position: relative;
-            display: inline-block;
-        }
-
-        .marker-underline::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -2px;
-            width: 100%;
-            height: 5px;
-            background: #facc15;
-            border-radius: 999px;
-            z-index: -1;
-            transform: rotate(-2deg);
-            opacity: .75;
-        }
-
-        /* ================================
-           HERO MOON
-        ================================= */
-
-        .hero-moon {
-            filter:
-                drop-shadow(0 0 12px rgba(250,204,21,.35))
-                drop-shadow(0 0 35px rgba(129,140,248,.15));
-        }
-
-        /* ================================
-           IMAGE FRAME
-        ================================= */
-
-        .profile-frame {
-            position: relative;
-        }
-
-        .profile-frame::before {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            border-radius: 1.5rem;
-            background: linear-gradient(
-                135deg,
-                rgba(250,204,21,.8),
-                rgba(129,140,248,.8),
-                transparent 65%
-            );
-            opacity: .4;
-            z-index: 0;
-        }
-
-        /* ================================
-           SHORT CARDS
-        ================================= */
-
-        .short-card {
-            transition:
-                transform .35s ease,
-                box-shadow .35s ease;
-        }
-
-        .short-card:hover {
-            transform: translateY(-8px) rotate(.5deg);
-            box-shadow: 0 20px 45px rgba(0,0,0,.3);
-        }
-
-        .short-thumbnail {
-            aspect-ratio: 9 / 16;
-            overflow: hidden;
-            background: #020617;
-        }
-
-        .short-thumbnail img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform .6s ease;
-        }
-
-        .short-card:hover .short-thumbnail img {
-            transform: scale(1.04);
-        }
-
-        /* ================================
-           PLAY BUTTON
-        ================================= */
-
-        .play-button {
-            position: absolute;
-            width: 54px;
-            height: 54px;
-            border-radius: 999px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(250,204,21,.95);
-            color: #0f172a;
-            box-shadow: 0 8px 30px rgba(0,0,0,.35);
-            transition:
-                transform .3s ease,
-                background .3s ease;
-        }
-
-        a:hover .play-button {
-            transform: scale(1.1);
-            background: #fde047;
-        }
-
-        /* ================================
-           REDUCED MOTION
-        ================================= */
-
-        @media (prefers-reduced-motion: reduce) {
-
-            html {
-                scroll-behavior: auto;
-            }
-
-            *,
-            *::before,
-            *::after {
-                animation-duration: .01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: .01ms !important;
-            }
-
-            .reveal {
-                opacity: 1;
-                transform: none;
-            }
-        }
-
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="font-sans antialiased">
 
-    <!-- ================================
-         NAVIGATION
-    ================================= -->
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
 
-    <nav
-        id="navbar"
-        class="fixed top-0 left-0 w-full z-50 glass-nav transition-all duration-300"
-    >
+<nav id="navbar" class="fixed top-0 left-0 w-full z-50 glass-nav">
 
-        <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
 
-            <div class="h-20 flex items-center justify-between">
+        <div class="h-20 flex items-center justify-between">
 
-                <!-- Logo -->
-                <a
-                    href="#home"
-                    class="flex items-center gap-3 group"
-                    aria-label="Mooncananimate home"
-                >
-
-                    <div
-                        class="w-10 h-10 rounded-full
-                        bg-gradient-to-tr from-moon-accent to-moon-glow
-                        flex items-center justify-center
-                        shadow-lg shadow-moon-glow/20
-                        group-hover:scale-105
-                        transition-transform"
-                    >
-                        <i class="fa-solid fa-moon text-moon-900"></i>
-                    </div>
-
-                    <span class="font-hand text-2xl font-bold tracking-wide">
-                        Mooncananimate
-                    </span>
-
-                </a>
-
-                <!-- Desktop Navigation -->
-                <div class="hidden md:flex items-center gap-7">
-
-                    <a href="#home"
-                       class="text-gray-300 hover:text-moon-accent transition-colors">
-                        Home
-                    </a>
-
-                    <a href="#about"
-                       class="text-gray-300 hover:text-moon-accent transition-colors">
-                        About
-                    </a>
-
-                    <a href="#work"
-                       class="text-gray-300 hover:text-moon-accent transition-colors">
-                        Work
-                    </a>
-
-                    <a href="#lab"
-                       class="text-gray-300 hover:text-moon-accent transition-colors">
-                        The Lab
-                    </a>
-
-                    <a href="#process"
-                       class="text-gray-300 hover:text-moon-accent transition-colors">
-                        Process
-                    </a>
-
-                    <a
-                        href="#contact"
-                        class="px-5 py-2.5 rounded-full
-                        bg-moon-glow
-                        hover:bg-indigo-500
-                        text-white font-bold
-                        shadow-lg shadow-indigo-500/10
-                        transition-all"
-                    >
-                        Let's Talk
-                    </a>
-
-                </div>
-
-                <!-- Mobile button -->
-                <button
-                    id="mobile-menu-btn"
-                    class="md:hidden text-gray-300 hover:text-white"
-                    aria-label="Open navigation menu"
-                    aria-expanded="false"
-                >
-                    <i class="fa-solid fa-bars text-2xl"></i>
-                </button>
-
-            </div>
-        </div>
-
-        <!-- Mobile menu -->
-        <div
-            id="mobile-menu"
-            class="hidden md:hidden bg-moon-950 border-t border-white/5"
-        >
-
-            <div class="px-5 py-4 space-y-1">
-
-                <a href="#home"
-                   class="mobile-link block px-3 py-3 text-gray-300 hover:text-white">
-                    Home
-                </a>
-
-                <a href="#about"
-                   class="mobile-link block px-3 py-3 text-gray-300 hover:text-white">
-                    About
-                </a>
-
-                <a href="#work"
-                   class="mobile-link block px-3 py-3 text-gray-300 hover:text-white">
-                    Work
-                </a>
-
-                <a href="#lab"
-                   class="mobile-link block px-3 py-3 text-gray-300 hover:text-white">
-                    The Lab
-                </a>
-
-                <a href="#process"
-                   class="mobile-link block px-3 py-3 text-gray-300 hover:text-white">
-                    Process
-                </a>
-
-                <a href="#contact"
-                   class="mobile-link block px-3 py-3 text-moon-accent font-bold">
-                    Contact
-                </a>
-
-            </div>
-
-        </div>
-
-    </nav>
-
-
-    <!-- ================================
-         HERO
-    ================================= -->
-
-    <section
-        id="home"
-        class="relative min-h-screen flex items-center justify-center overflow-hidden"
-    >
-
-        <canvas id="star-canvas"></canvas>
-
-        <!-- Background glow -->
-        <div
-            class="absolute w-[500px] h-[500px]
-            bg-moon-glow/10
-            rounded-full blur-3xl
-            pointer-events-none"
-        ></div>
-
-        <div
-            class="relative z-10
-            text-center
-            px-6
-            max-w-4xl
-            mx-auto
-            pt-20"
-        >
-
-            <!-- Moon -->
-            <div class="mb-7 animate-float">
-
-                <svg
-                    width="125"
-                    height="125"
-                    viewBox="0 0 100 100"
-                    class="hero-moon mx-auto"
-                    aria-hidden="true"
-                >
-
-                    <circle
-                        cx="50"
-                        cy="50"
-                        r="40"
-                        fill="#facc15"
-                    />
-
-                    <circle
-                        cx="66"
-                        cy="39"
-                        r="35"
-                        fill="#0f172a"
-                    />
-
-                    <circle
-                        cx="30"
-                        cy="29"
-                        r="2"
-                        fill="white"
-                    />
-
-                    <circle
-                        cx="40"
-                        cy="69"
-                        r="3"
-                        fill="white"
-                    />
-
-                </svg>
-
-            </div>
-
-            <p
-                class="font-hand text-xl text-moon-accent mb-3"
-            >
-                THE ANIMATION PORTFOLIO OF MOONFROS
-            </p>
-
-            <h1
-                class="font-hand
-                text-6xl
-                sm:text-7xl
-                md:text-8xl
-                font-bold
-                leading-none
-                mb-7"
-            >
-                Mooncananimate.
-            </h1>
-
-            <p
-                class="text-xl
-                sm:text-2xl
-                text-gray-300
-                max-w-2xl
-                mx-auto
-                leading-relaxed
-                mb-10"
-            >
-                2D animation, storytelling and little worlds
-                brought to life one frame at a time.
-            </p>
-
-            <div
-                class="flex
-                flex-col
-                sm:flex-row
-                justify-center
-                gap-4"
-            >
-
-                <a
-                    href="#work"
-                    class="px-8 py-4
-                    bg-moon-accent
-                    text-moon-900
-                    rounded-full
-                    font-bold
-                    text-lg
-                    hover:bg-yellow-300
-                    hover:scale-105
-                    transition-all
-                    shadow-lg shadow-yellow-500/10
-                    flex items-center justify-center gap-2"
-                >
-                    <i class="fa-solid fa-play"></i>
-                    Explore the Work
-                </a>
-
-                <a
-                    href="#about"
-                    class="px-8 py-4
-                    border border-white/15
-                    hover:border-white/40
-                    text-white
-                    rounded-full
-                    font-bold
-                    text-lg
-                    hover:bg-white/5
-                    transition-all
-                    flex items-center justify-center"
-                >
-                    Meet Moonfros
-                </a>
-
-            </div>
-
-        </div>
-
-        <!-- Scroll -->
-        <a
-            href="#about"
-            class="absolute bottom-8 left-1/2 -translate-x-1/2
-            text-gray-500 hover:text-white transition-colors"
-            aria-label="Scroll to About"
-        >
-            <i class="fa-solid fa-chevron-down animate-bounce text-xl"></i>
-        </a>
-
-    </section>
-
-
-    <!-- ================================
-         ABOUT MOONFROS
-    ================================= -->
-
-    <section
-        id="about"
-        class="py-24 bg-moon-800 relative"
-    >
-
-        <div class="max-w-6xl mx-auto px-6">
-
-            <div
-                class="grid
-                grid-cols-1
-                md:grid-cols-2
-                gap-14
-                items-center"
-            >
-
-                <!-- Profile picture -->
-                <div class="reveal profile-frame">
-
-                    <div
-                        class="relative z-10
-                        bg-moon-900
-                        rounded-3xl
-                        overflow-hidden
-                        aspect-square
-                        border border-white/10
-                        flex items-center justify-center"
-                    >
-
-                        <!--
-                            Replace this file later:
-
-                            assets/moonfros.png
-                        -->
-
-                        <img
-                            src="assets/moonfros.png"
-                            alt="Moonfros, animator behind Mooncananimate"
-                            class="w-full h-full object-cover relative z-10"
-                            onerror="this.style.display='none'; document.getElementById('profile-placeholder').classList.remove('hidden');"
-                        >
-
-                        <!-- Temporary placeholder -->
-                        <div
-                            id="profile-placeholder"
-                            class="hidden absolute inset-0
-                            flex flex-col
-                            items-center
-                            justify-center
-                            text-center
-                            p-10"
-                        >
-
-                            <div
-                                class="w-28 h-28
-                                rounded-full
-                                bg-gradient-to-tr
-                                from-moon-accent
-                                to-moon-glow
-                                flex items-center justify-center
-                                mb-6"
-                            >
-                                <i class="fa-solid fa-moon text-5xl text-moon-900"></i>
-                            </div>
-
-                            <p class="font-hand text-2xl text-gray-300">
-                                Moonfros
-                            </p>
-
-                            <p class="text-sm text-gray-500 mt-2">
-                                Profile picture goes here
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- About text -->
-                <div class="reveal">
-
-                    <p
-                        class="text-moon-accent
-                        font-semibold
-                        uppercase
-                        tracking-[.2em]
-                        text-sm
-                        mb-3"
-                    >
-                        Behind the Moon
-                    </p>
-
-                    <h2
-                        class="font-hand
-                        text-5xl
-                        font-bold
-                        mb-6"
-                    >
-                        I'm <span class="marker-underline">Moonfros.</span>
-                    </h2>
-
-                    <p
-                        class="text-xl
-                        text-gray-300
-                        leading-relaxed
-                        mb-6"
-                    >
-                        I'm the animator behind Mooncananimate,
-                        creating 2D animations, short films,
-                        experiments and stories one frame at a time.
-                    </p>
-
-                    <p
-                        class="text-gray-400
-                        leading-relaxed
-                        mb-8"
-                    >
-                        Some projects become polished films.
-                        Some become tiny experiments.
-                        Some begin as a sketch that refuses to stay
-                        on the page. This is where I keep all of it.
-                    </p>
-
-                    <div
-                        class="grid
-                        grid-cols-2
-                        gap-4"
-                    >
-
-                        <div
-                            class="p-4
-                            rounded-xl
-                            bg-moon-900/50
-                            border border-white/5"
-                        >
-                            <i class="fa-solid fa-pencil text-moon-accent mb-3"></i>
-                            <p class="font-semibold">
-                                2D Animation
-                            </p>
-                        </div>
-
-                        <div
-                            class="p-4
-                            rounded-xl
-                            bg-moon-900/50
-                            border border-white/5"
-                        >
-                            <i class="fa-solid fa-film text-moon-accent mb-3"></i>
-                            <p class="font-semibold">
-                                Storytelling
-                            </p>
-                        </div>
-
-                        <div
-                            class="p-4
-                            rounded-xl
-                            bg-moon-900/50
-                            border border-white/5"
-                        >
-                            <i class="fa-solid fa-wand-magic-sparkles text-moon-accent mb-3"></i>
-                            <p class="font-semibold">
-                                Visual Experiments
-                            </p>
-                        </div>
-
-                        <div
-                            class="p-4
-                            rounded-xl
-                            bg-moon-900/50
-                            border border-white/5"
-                        >
-                            <i class="fa-solid fa-star text-moon-accent mb-3"></i>
-                            <p class="font-semibold">
-                                Little Worlds
-                            </p>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ================================
-         WORK
-    ================================= -->
-
-    <section
-        id="work"
-        class="py-24 bg-moon-900"
-    >
-
-        <div class="max-w-7xl mx-auto px-6">
-
-            <!-- Heading -->
-            <div class="text-center mb-16 reveal">
-
-                <p
-                    class="text-moon-accent
-                    font-semibold
-                    uppercase
-                    tracking-[.2em]
-                    text-sm
-                    mb-3"
-                >
-                    Selected work
-                </p>
-
-                <h2
-                    class="font-hand
-                    text-5xl
-                    md:text-6xl
-                    font-bold
-                    mb-4"
-                >
-                    Featured <span class="text-moon-glow">Work</span>
-                </h2>
-
-                <p
-                    class="text-gray-400
-                    max-w-2xl
-                    mx-auto"
-                >
-                    Larger projects, short films and animations
-                    that deserve a little more room to breathe.
-                </p>
-
-            </div>
-
-
-            <!-- Featured landscape work -->
-            <div
-                class="grid
-                grid-cols-1
-                md:grid-cols-2
-                gap-8"
-            >
-
-                <!-- Star Walker -->
-                <article class="glass-card rounded-2xl overflow-hidden reveal">
-
-                    <a
-                        href="https://www.youtube.com/watch?v=6WT2fUeS22k"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="block"
-                    >
-
-                        <div
-                            class="relative
-                            aspect-video
-                            bg-black
-                            overflow-hidden"
-                        >
-
-                            <img
-                                src="https://img.youtube.com/vi/6WT2fUeS22k/maxresdefault.jpg"
-                                alt="Star Walker animation thumbnail"
-                                class="w-full h-full object-cover"
-                            >
-
-                            <div
-                                class="absolute inset-0
-                                bg-black/25
-                                hover:bg-black/10
-                                transition-colors
-                                flex items-center justify-center"
-                            >
-
-                                <span class="play-button">
-                                    <i class="fa-solid fa-play"></i>
-                                </span>
-
-                            </div>
-
-                        </div>
-
-                    </a>
-
-                    <div class="p-6">
-
-                        <div class="flex justify-between gap-4 items-start mb-2">
-
-                            <h3 class="text-xl font-bold">
-                                Star Walker
-                            </h3>
-
-                            <span
-                                class="text-xs
-                                bg-moon-700
-                                px-2.5 py-1
-                                rounded-full
-                                text-gray-300
-                                whitespace-nowrap"
-                            >
-                                Short Film
-                            </span>
-
-                        </div>
-
-                        <p class="text-gray-400 text-sm leading-relaxed">
-                            A journey through the galaxy searching
-                            for the perfect cup of tea.
-                        </p>
-
-                    </div>
-
-                </article>
-
-
-                <!-- Future featured project -->
-                <article
-                    class="rounded-2xl
-                    border border-dashed
-                    border-white/10
-                    bg-moon-800/20
-                    min-h-[300px]
-                    flex items-center justify-center
-                    text-center
-                    p-8
-                    reveal"
-                >
-
-                    <div>
-
-                        <div
-                            class="w-16 h-16
-                            rounded-full
-                            border border-moon-glow/30
-                            flex items-center justify-center
-                            mx-auto mb-5"
-                        >
-                            <i class="fa-solid fa-plus text-moon-glow"></i>
-                        </div>
-
-                        <h3 class="font-hand text-3xl font-bold mb-2">
-                            Next Project
-                        </h3>
-
-                        <p class="text-gray-500 max-w-xs mx-auto">
-                            A larger animation is currently
-                            being drawn into existence.
-                        </p>
-
-                    </div>
-
-                </article>
-
-            </div>
-
-
-            <!-- YouTube link -->
-            <div class="text-center mt-12">
-
-                <a
-                    href="https://www.youtube.com/@Mooncananimate"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="inline-flex items-center gap-2
-                    text-moon-glow
-                    hover:text-white
-                    transition-colors"
-                >
-                    Browse the YouTube channel
-                    <i class="fa-solid fa-arrow-up-right-from-square text-sm"></i>
-                </a>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ================================
-         SHORTS
-    ================================= -->
-
-    <section
-        id="shorts"
-        class="py-24 bg-moon-800"
-    >
-
-        <div class="max-w-7xl mx-auto px-6">
-
-            <div class="mb-12 reveal">
-
-                <p
-                    class="text-moon-accent
-                    font-semibold
-                    uppercase
-                    tracking-[.2em]
-                    text-sm
-                    mb-3"
-                >
-                    Quick stories
-                </p>
-
-                <h2
-                    class="font-hand
-                    text-5xl
-                    md:text-6xl
-                    font-bold
-                    mb-4"
-                >
-                    Shorts
-                </h2>
-
-                <p class="text-gray-400 max-w-2xl">
-                    Tiny animations, quick ideas and short-form
-                    experiments from the Mooncananimate universe.
-                </p>
-
-            </div>
-
-
-            <div
-                class="grid
-                grid-cols-2
-                sm:grid-cols-3
-                lg:grid-cols-5
-                gap-5"
-            >
-
-                <!-- First Animation -->
-                <article
-                    class="short-card
-                    bg-moon-900
-                    rounded-2xl
-                    overflow-hidden
-                    border border-white/5
-                    reveal"
-                >
-
-                    <a
-                        href="https://www.youtube.com/watch?v=MNKxN8yAelo"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="block"
-                    >
-
-                        <div class="short-thumbnail relative">
-
-                            <img
-                                src="https://img.youtube.com/vi/MNKxN8yAelo/maxresdefault.jpg"
-                                alt="First Animation thumbnail"
-                            >
-
-                            <div
-                                class="absolute inset-0
-                                bg-black/20
-                                flex items-center justify-center"
-                            >
-                                <span class="play-button">
-                                    <i class="fa-solid fa-play"></i>
-                                </span>
-                            </div>
-
-                        </div>
-
-                    </a>
-
-                    <div class="p-4">
-
-                        <h3 class="font-bold mb-1">
-                            First Animation
-                        </h3>
-
-                        <p class="text-xs text-gray-500">
-                            Skit
-                        </p>
-
-                    </div>
-
-                </article>
-
-
-                <!-- Blur Gameplay -->
-                <article
-                    class="short-card
-                    bg-moon-900
-                    rounded-2xl
-                    overflow-hidden
-                    border border-white/5
-                    reveal"
-                >
-
-                    <a
-                        href="https://www.youtube.com/watch?v=fSXlIjwRXwA"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="block"
-                    >
-
-                        <div class="short-thumbnail relative">
-
-                            <img
-                                src="https://img.youtube.com/vi/fSXlIjwRXwA/maxresdefault.jpg"
-                                alt="Blur Gameplay thumbnail"
-                            >
-
-                            <div
-                                class="absolute inset-0
-                                bg-black/20
-                                flex items-center justify-center"
-                            >
-                                <span class="play-button">
-                                    <i class="fa-solid fa-play"></i>
-                                </span>
-                            </div>
-
-                        </div>
-
-                    </a>
-
-                    <div class="p-4">
-
-                        <h3 class="font-bold mb-1">
-                            Blur Gameplay
-                        </h3>
-
-                        <p class="text-xs text-gray-500">
-                            Gameplay
-                        </p>
-
-                    </div>
-
-                </article>
-
-
-                <!-- Future short -->
-                <article
-                    class="short-card
-                    bg-moon-900/40
-                    rounded-2xl
-                    overflow-hidden
-                    border border-dashed border-white/10
-                    flex items-center justify-center
-                    min-h-[280px]
-                    reveal"
-                >
-
-                    <div class="text-center p-5">
-
-                        <i
-                            class="fa-solid fa-film
-                            text-2xl
-                            text-gray-600
-                            mb-4"
-                        ></i>
-
-                        <p class="font-hand text-xl text-gray-400">
-                            Next Short
-                        </p>
-
-                        <p class="text-xs text-gray-600 mt-2">
-                            Coming soon
-                        </p>
-
-                    </div>
-
-                </article>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ================================
-         CURRENTLY ANIMATING
-    ================================= -->
-
-    <section
-        class="py-24 bg-moon-900 relative overflow-hidden"
-    >
-
-        <div
-            class="absolute
-            w-96 h-96
-            bg-moon-glow/10
-            rounded-full
-            blur-3xl
-            right-0
-            top-1/2
-            -translate-y-1/2"
-        ></div>
-
-        <div class="max-w-5xl mx-auto px-6 relative z-10">
-
-            <div class="reveal">
-
-                <p
-                    class="text-moon-accent
-                    font-semibold
-                    uppercase
-                    tracking-[.2em]
-                    text-sm
-                    mb-3"
-                >
-                    Work in progress
-                </p>
-
-                <h2
-                    class="font-hand
-                    text-5xl
-                    md:text-6xl
-                    font-bold
-                    mb-8"
-                >
-                    Currently Animating
-                </h2>
-
-            </div>
-
-
-            <div
-                class="glass-card
-                rounded-3xl
-                p-7
-                md:p-10
-                reveal"
-            >
+            <!-- Logo -->
+            <a href="#home" class="flex items-center group">
 
                 <div
-                    class="grid
-                    md:grid-cols-[1.3fr_1fr]
-                    gap-10
-                    items-center"
+                    class="logo-orb w-10 h-10 rounded-full flex items-center justify-center mr-3"
                 >
-
-                    <!-- Project preview -->
-                    <div
-                        class="aspect-video
-                        rounded-2xl
-                        bg-moon-950
-                        border border-white/5
-                        flex items-center justify-center
-                        overflow-hidden"
-                    >
-
-                        <div class="text-center p-8">
-
-                            <div
-                                class="text-5xl
-                                text-moon-accent
-                                mb-4
-                                animate-float"
-                            >
-                                🌙
-                            </div>
-
-                            <p class="font-hand text-2xl">
-                                Something is being animated...
-                            </p>
-
-                            <p class="text-sm text-gray-600 mt-2">
-                                Project preview will live here.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- Project info -->
-                    <div>
-
-                        <span
-                            class="inline-flex
-                            items-center
-                            gap-2
-                            text-xs
-                            uppercase
-                            tracking-wider
-                            text-moon-accent
-                            bg-moon-accent/10
-                            px-3 py-1.5
-                            rounded-full
-                            mb-5"
-                        >
-                            <span
-                                class="w-1.5 h-1.5
-                                bg-moon-accent
-                                rounded-full
-                                animate-pulse"
-                            ></span>
-
-                            In production
-                        </span>
-
-                        <h3
-                            class="font-hand
-                            text-3xl
-                            font-bold
-                            mb-4"
-                        >
-                            The next Mooncananimate story
-                        </h3>
-
-                        <p
-                            class="text-gray-400
-                            leading-relaxed
-                            mb-6"
-                        >
-                            This space will become a home for
-                            whatever larger animation Moonfros is
-                            currently working on.
-                        </p>
-
-                        <!-- Progress -->
-                        <div>
-
-                            <div
-                                class="flex
-                                justify-between
-                                text-sm
-                                text-gray-500
-                                mb-2"
-                            >
-                                <span>Animation progress</span>
-                                <span>In progress</span>
-                            </div>
-
-                            <div
-                                class="h-2
-                                bg-moon-950
-                                rounded-full
-                                overflow-hidden"
-                            >
-                                <div
-                                    class="h-full
-                                    w-[35%]
-                                    bg-gradient-to-r
-                                    from-moon-accent
-                                    to-moon-glow
-                                    rounded-full"
-                                ></div>
-                            </div>
-
-                        </div>
-
-                    </div>
-
+                    <i class="fa-solid fa-moon text-white"></i>
                 </div>
 
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ================================
-         THE LAB
-    ================================= -->
-
-    <section
-        id="lab"
-        class="py-24 bg-moon-800"
-    >
-
-        <div class="max-w-7xl mx-auto px-6">
-
-            <div
-                class="flex
-                flex-col
-                md:flex-row
-                md:items-end
-                justify-between
-                gap-6
-                mb-12
-                reveal"
-            >
-
-                <div>
-
-                    <p
-                        class="text-moon-accent
-                        font-semibold
-                        uppercase
-                        tracking-[.2em]
-                        text-sm
-                        mb-3"
-                    >
-                        Experiments
-                    </p>
-
-                    <h2
-                        class="font-hand
-                        text-5xl
-                        md:text-6xl
-                        font-bold"
-                    >
-                        The Lab
-                    </h2>
-
-                </div>
-
-                <p class="text-gray-400 max-w-md">
-                    Walk cycles, effects, sketches, weird ideas
-                    and everything that happens between finished
-                    animations.
-                </p>
-
-            </div>
-
-
-            <div
-                class="grid
-                grid-cols-1
-                sm:grid-cols-2
-                lg:grid-cols-3
-                gap-5"
-            >
-
-                <!-- Lab placeholder -->
-                <div
-                    class="glass-card
-                    rounded-2xl
-                    p-8
-                    min-h-[220px]
-                    flex
-                    flex-col
-                    justify-between
-                    reveal"
-                >
-
-                    <div>
-
-                        <i
-                            class="fa-solid fa-person-walking
-                            text-3xl
-                            text-moon-accent
-                            mb-6"
-                        ></i>
-
-                        <h3 class="font-hand text-2xl font-bold">
-                            Animation Tests
-                        </h3>
-
-                        <p class="text-sm text-gray-500 mt-2">
-                            Walk cycles, movement and character tests.
-                        </p>
-
-                    </div>
-
-                    <span class="text-xs text-gray-600 mt-8">
-                        More experiments coming soon
-                    </span>
-
-                </div>
-
-
-                <div
-                    class="glass-card
-                    rounded-2xl
-                    p-8
-                    min-h-[220px]
-                    flex
-                    flex-col
-                    justify-between
-                    reveal"
-                >
-
-                    <div>
-
-                        <i
-                            class="fa-solid fa-wand-magic-sparkles
-                            text-3xl
-                            text-moon-glow
-                            mb-6"
-                        ></i>
-
-                        <h3 class="font-hand text-2xl font-bold">
-                            Visual Experiments
-                        </h3>
-
-                        <p class="text-sm text-gray-500 mt-2">
-                            Effects, lighting, transitions and
-                            strange little ideas.
-                        </p>
-
-                    </div>
-
-                    <span class="text-xs text-gray-600 mt-8">
-                        More experiments coming soon
-                    </span>
-
-                </div>
-
-
-                <div
-                    class="glass-card
-                    rounded-2xl
-                    p-8
-                    min-h-[220px]
-                    flex
-                    flex-col
-                    justify-between
-                    reveal"
-                >
-
-                    <div>
-
-                        <i
-                            class="fa-solid fa-pencil
-                            text-3xl
-                            text-moon-accent
-                            mb-6"
-                        ></i>
-
-                        <h3 class="font-hand text-2xl font-bold">
-                            Sketchbook
-                        </h3>
-
-                        <p class="text-sm text-gray-500 mt-2">
-                            Drawings, concepts and things that
-                            might eventually become animations.
-                        </p>
-
-                    </div>
-
-                    <span class="text-xs text-gray-600 mt-8">
-                        More experiments coming soon
-                    </span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ================================
-         BEHIND THE SCENES
-    ================================= -->
-
-    <section
-        id="process"
-        class="py-24 bg-moon-900 border-y border-white/5"
-    >
-
-        <div class="max-w-7xl mx-auto px-6">
-
-            <div
-                class="flex
-                flex-col
-                md:flex-row
-                md:items-end
-                justify-between
-                gap-6
-                mb-12
-                reveal"
-            >
-
-                <div>
-
-                    <p
-                        class="text-moon-accent
-                        font-semibold
-                        uppercase
-                        tracking-[.2em]
-                        text-sm
-                        mb-3"
-                    >
-                        The process
-                    </p>
-
-                    <h2
-                        class="font-hand
-                        text-5xl
-                        md:text-6xl
-                        font-bold"
-                    >
-                        Behind the Scenes
-                    </h2>
-
-                </div>
-
-                <p class="text-gray-400 max-w-md">
-                    From the first scribble to the final frame.
-                </p>
-
-            </div>
-
-
-            <div
-                class="grid
-                grid-cols-2
-                md:grid-cols-4
-                gap-4"
-            >
-
-                <div
-                    class="reveal
-                    bg-white
-                    rounded-xl
-                    p-2
-                    rotate-1
-                    hover:rotate-0
-                    transition-transform
-                    shadow-xl"
-                >
-
-                    <div
-                        class="aspect-square
-                        border-2
-                        border-dashed
-                        border-gray-300
-                        flex
-                        flex-col
-                        items-center
-                        justify-center
-                        text-center"
-                    >
-
-                        <i
-                            class="fa-solid fa-pencil
-                            text-gray-400
-                            text-3xl
-                            mb-3"
-                        ></i>
-
-                        <span
-                            class="font-hand
-                            text-gray-800
-                            font-bold
-                            text-xl"
-                        >
-                            Rough
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <div
-                    class="reveal
-                    bg-white
-                    rounded-xl
-                    p-2
-                    -rotate-2
-                    hover:rotate-0
-                    transition-transform
-                    shadow-xl"
-                >
-
-                    <div
-                        class="aspect-square
-                        border-2
-                        border-gray-800
-                        flex
-                        flex-col
-                        items-center
-                        justify-center
-                        text-center"
-                    >
-
-                        <i
-                            class="fa-solid fa-pen-ruler
-                            text-gray-800
-                            text-3xl
-                            mb-3"
-                        ></i>
-
-                        <span
-                            class="font-hand
-                            text-gray-800
-                            font-bold
-                            text-xl"
-                        >
-                            Lineart
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <div
-                    class="reveal
-                    bg-white
-                    rounded-xl
-                    p-2
-                    rotate-2
-                    hover:rotate-0
-                    transition-transform
-                    shadow-xl"
-                >
-
-                    <div
-                        class="aspect-square
-                        bg-moon-glow/10
-                        flex
-                        flex-col
-                        items-center
-                        justify-center
-                        text-center"
-                    >
-
-                        <i
-                            class="fa-solid fa-fill-drip
-                            text-moon-glow
-                            text-3xl
-                            mb-3"
-                        ></i>
-
-                        <span
-                            class="font-hand
-                            text-gray-800
-                            font-bold
-                            text-xl"
-                        >
-                            Color
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <div
-                    class="reveal
-                    bg-gray-950
-                    rounded-xl
-                    p-2
-                    -rotate-1
-                    hover:rotate-0
-                    transition-transform
-                    shadow-xl"
-                >
-
-                    <div
-                        class="aspect-square
-                        border border-white/10
-                        flex
-                        flex-col
-                        items-center
-                        justify-center
-                        text-center"
-                    >
-
-                        <i
-                            class="fa-solid fa-film
-                            text-white
-                            text-3xl
-                            mb-3"
-                        ></i>
-
-                        <span
-                            class="font-hand
-                            text-white
-                            font-bold
-                            text-xl"
-                        >
-                            Final
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ================================
-         CONTACT
-    ================================= -->
-
-    <section
-        id="contact"
-        class="py-24 bg-moon-900 relative overflow-hidden"
-    >
-
-        <div
-            class="absolute
-            top-0
-            right-0
-            w-96
-            h-96
-            bg-purple-500/10
-            rounded-full
-            blur-3xl"
-        ></div>
-
-        <div class="max-w-5xl mx-auto px-6 relative z-10">
-
-            <div
-                class="text-center
-                mb-14
-                reveal"
-            >
-
-                <p
-                    class="text-moon-accent
-                    font-semibold
-                    uppercase
-                    tracking-[.2em]
-                    text-sm
-                    mb-3"
-                >
-                    Get in touch
-                </p>
-
-                <h2
-                    class="font-hand
-                    text-5xl
-                    md:text-6xl
-                    font-bold
-                    mb-4"
-                >
-                    Let's make something.
-                </h2>
-
-                <p class="text-gray-400">
-                    Got a story that needs a few hundred drawings?
-                </p>
-
-            </div>
-
-
-            <div
-                class="glass-card
-                rounded-3xl
-                p-8
-                md:p-12
-                reveal"
-            >
-
-                <div
-                    class="grid
-                    grid-cols-1
-                    md:grid-cols-2
-                    gap-12"
-                >
-
-                    <!-- Socials -->
-                    <div>
-
-                        <h3 class="font-hand text-3xl font-bold mb-7">
-                            Find Moonfros
-                        </h3>
-
-                        <div class="grid grid-cols-2 gap-4">
-
-                            <a
-                                href="https://www.youtube.com/@Mooncananimate"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="flex items-center gap-3 p-4 bg-moon-800 rounded-xl hover:bg-red-500 transition-all border border-white/5"
-                            >
-                                <i class="fa-brands fa-youtube text-xl"></i>
-                                <span>YouTube</span>
-                            </a>
-
-                            <a
-                                href="https://www.instagram.com/mooncananimate/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="flex items-center gap-3 p-4 bg-moon-800 rounded-xl hover:bg-pink-600 transition-all border border-white/5"
-                            >
-                                <i class="fa-brands fa-instagram text-xl"></i>
-                                <span>Instagram</span>
-                            </a>
-
-                            <a
-                                href="https://www.tiktok.com/@mooncananimate"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="flex items-center gap-3 p-4 bg-moon-800 rounded-xl hover:bg-black transition-all border border-white/5"
-                            >
-                                <i class="fa-brands fa-tiktok text-xl"></i>
-                                <span>TikTok</span>
-                            </a>
-
-                            <a
-                                href="https://web.facebook.com/profile.php?id=61555526380400"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="flex items-center gap-3 p-4 bg-moon-800 rounded-xl hover:bg-blue-500 transition-all border border-white/5"
-                            >
-                                <i class="fa-brands fa-facebook text-xl"></i>
-                                <span>Facebook</span>
-                            </a>
-
-                        </div>
-
-                        <div
-                            class="mt-8
-                            p-6
-                            rounded-2xl
-                            bg-moon-800/60
-                            border border-white/5"
-                        >
-
-                            <p class="font-hand text-xl text-gray-300">
-                                "Every animation starts with one frame."
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- Form -->
-                    <form
-                        id="contact-form"
-                        action="https://formspree.io/f/xnjjnqpp"
-                        method="POST"
-                        class="space-y-4 relative"
-                    >
-
-                        <!-- Success -->
-                        <div
-                            id="success-message"
-                            class="hidden
-                            absolute
-                            inset-0
-                            bg-moon-900/95
-                            backdrop-blur-sm
-                            z-10
-                            items-center
-                            justify-center
-                            flex-col
-                            rounded-2xl
-                            text-center
-                            p-6"
-                        >
-
-                            <div
-                                class="w-16 h-16
-                                bg-green-500/20
-                                rounded-full
-                                flex items-center justify-center
-                                mb-4"
-                            >
-                                <i class="fa-solid fa-check text-green-400 text-2xl"></i>
-                            </div>
-
-                            <h3 class="font-hand text-3xl font-bold mb-2">
-                                Message sent!
-                            </h3>
-
-                            <p class="text-gray-400">
-                                Thanks for reaching out.
-                            </p>
-
-                            <button
-                                type="button"
-                                id="send-another"
-                                class="mt-5 text-sm text-moon-glow underline"
-                            >
-                                Send another
-                            </button>
-
-                        </div>
-
-
-                        <div>
-
-                            <label
-                                for="name"
-                                class="block text-sm text-gray-400 mb-2"
-                            >
-                                Name
-                            </label>
-
-                            <input
-                                id="name"
-                                type="text"
-                                name="name"
-                                required
-                                class="w-full
-                                bg-moon-900
-                                border border-gray-700
-                                rounded-xl
-                                px-4 py-3
-                                text-white
-                                focus:outline-none
-                                focus:border-moon-glow
-                                transition-all"
-                                placeholder="Your name"
-                            >
-
-                        </div>
-
-
-                        <div>
-
-                            <label
-                                for="email"
-                                class="block text-sm text-gray-400 mb-2"
-                            >
-                                Email
-                            </label>
-
-                            <input
-                                id="email"
-                                type="email"
-                                name="email"
-                                required
-                                class="w-full
-                                bg-moon-900
-                                border border-gray-700
-                                rounded-xl
-                                px-4 py-3
-                                text-white
-                                focus:outline-none
-                                focus:border-moon-glow
-                                transition-all"
-                                placeholder="hello@example.com"
-                            >
-
-                        </div>
-
-
-                        <div>
-
-                            <label
-                                for="message"
-                                class="block text-sm text-gray-400 mb-2"
-                            >
-                                Message
-                            </label>
-
-                            <textarea
-                                id="message"
-                                rows="4"
-                                name="message"
-                                required
-                                class="w-full
-                                bg-moon-900
-                                border border-gray-700
-                                rounded-xl
-                                px-4 py-3
-                                text-white
-                                focus:outline-none
-                                focus:border-moon-glow
-                                transition-all"
-                                placeholder="Tell me about your project..."
-                            ></textarea>
-
-                        </div>
-
-
-                        <button
-                            id="submit-btn"
-                            type="submit"
-                            class="w-full
-                            bg-moon-glow
-                            hover:bg-indigo-500
-                            text-white
-                            font-bold
-                            py-3.5
-                            px-6
-                            rounded-xl
-                            transition-all
-                            hover:-translate-y-1"
-                        >
-                            <span>Send Message</span>
-                            <i class="fa-solid fa-paper-plane ml-2"></i>
-                        </button>
-
-                    </form>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ================================
-         FOOTER
-    ================================= -->
-
-    <footer
-        class="bg-black
-        py-8
-        border-t border-white/5"
-    >
-
-        <div
-            class="max-w-7xl
-            mx-auto
-            px-6
-            flex
-            flex-col
-            md:flex-row
-            justify-between
-            items-center
-            gap-4"
-        >
-
-            <a
-                href="#home"
-                class="flex items-center gap-2"
-            >
-
-                <i class="fa-solid fa-moon text-moon-accent"></i>
-
-                <span class="font-hand font-bold text-xl">
+                <span class="font-hand text-2xl font-bold tracking-wide">
                     Mooncananimate
                 </span>
 
             </a>
 
-            <p class="text-gray-600 text-sm">
-                © <span id="year"></span> Mooncananimate.
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex items-center gap-2">
+
+                <a href="#home" class="nav-link">Home</a>
+
+                <a href="#about" class="nav-link">About</a>
+
+                <a href="#portfolio" class="nav-link">Animations</a>
+
+                <a href="#upcoming" class="nav-link">Upcoming</a>
+
+                <a href="#process" class="nav-link">Behind the Scenes</a>
+
+                <a
+                    href="#contact"
+                    class="ml-3 px-5 py-2.5 rounded-full bg-moon-glow hover:bg-indigo-500 transition-all font-bold shadow-lg"
+                >
+                    Let's Talk
+                </a>
+
+            </div>
+
+            <!-- Mobile Button -->
+            <button
+                id="mobile-menu-btn"
+                class="md:hidden text-gray-300 hover:text-white"
+                aria-label="Open menu"
+            >
+                <i class="fa-solid fa-bars text-2xl"></i>
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden mobile-menu">
+
+        <div class="px-5 py-5 space-y-2">
+
+            <a href="#home" class="mobile-link">Home</a>
+            <a href="#about" class="mobile-link">About</a>
+            <a href="#portfolio" class="mobile-link">Animations</a>
+            <a href="#shorts" class="mobile-link">Shorts</a>
+            <a href="#upcoming" class="mobile-link">Upcoming</a>
+            <a href="#process" class="mobile-link">Behind the Scenes</a>
+            <a href="#contact" class="mobile-link">Contact</a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section
+    id="home"
+    class="relative min-h-screen flex items-center justify-center overflow-hidden"
+>
+
+    <canvas id="star-canvas"></canvas>
+
+    <div class="hero-glow hero-glow-one"></div>
+    <div class="hero-glow hero-glow-two"></div>
+
+    <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+
+        <!-- Moon -->
+        <div class="mb-8 animate-float">
+
+            <svg
+                width="130"
+                height="130"
+                viewBox="0 0 100 100"
+                class="mx-auto moon-svg"
+            >
+                <circle
+                    cx="50"
+                    cy="50"
+                    r="40"
+                    fill="#facc15"
+                />
+
+                <circle
+                    cx="66"
+                    cy="39"
+                    r="35"
+                    fill="#0f172a"
+                />
+
+                <circle
+                    cx="30"
+                    cy="29"
+                    r="2"
+                    fill="white"
+                />
+
+                <circle
+                    cx="39"
+                    cy="69"
+                    r="3"
+                    fill="white"
+                />
+            </svg>
+
+        </div>
+
+        <p class="text-moon-glow font-semibold tracking-[0.3em] uppercase text-sm mb-5">
+            2D Animation • Storytelling • Experiments
+        </p>
+
+        <h1 class="font-hand text-5xl sm:text-6xl md:text-8xl font-bold leading-tight mb-6">
+
+            Bringing stories to life,
+
+            <span class="text-moon-accent block">
+                one frame at a time.
+            </span>
+
+        </h1>
+
+        <p class="text-lg md:text-2xl text-gray-300 max-w-2xl mx-auto leading-relaxed mb-10">
+
+            Hi, I'm <strong class="text-white">Moonfros</strong>.
+            I make 2D animations, little stories and things that probably
+            should have stayed inside my sketchbook.
+
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+
+            <a
+                href="#portfolio"
+                class="primary-button"
+            >
+                <i class="fa-solid fa-play"></i>
+                Watch my work
+            </a>
+
+            <a
+                href="#about"
+                class="secondary-button"
+            >
+                Meet Moonfros
+            </a>
+
+        </div>
+
+    </div>
+
+    <a
+        href="#about"
+        class="absolute bottom-8 left-1/2 -translate-x-1/2 text-gray-500 hover:text-white transition animate-bounce"
+        aria-label="Scroll down"
+    >
+        <i class="fa-solid fa-chevron-down text-xl"></i>
+    </a>
+
+</section>
+
+
+<!-- =========================================================
+     ABOUT
+========================================================= -->
+
+<section id="about" class="section bg-moon-800">
+
+    <div class="max-w-6xl mx-auto px-6">
+
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+
+            <!-- Profile -->
+            <div class="reveal">
+
+                <div class="profile-frame">
+
+                    <!-- Replace this with your actual image later -->
+                    <img
+                        src="assets/profile/moonfros.png"
+                        alt="Moonfros"
+                        class="profile-image"
+                        onerror="this.style.display='none'; document.getElementById('profile-placeholder').style.display='flex';"
+                    >
+
+                    <div
+                        id="profile-placeholder"
+                        class="profile-placeholder"
+                    >
+
+                        <i class="fa-solid fa-moon text-6xl text-moon-glow mb-5"></i>
+
+                        <p class="font-hand text-2xl">
+                            Moonfros
+                        </p>
+
+                        <p class="text-sm text-gray-500 mt-2">
+                            Profile picture coming soon 🌙
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- About Text -->
+            <div class="reveal">
+
+                <p class="section-label">
+                    ABOUT THE ANIMATOR
+                </p>
+
+                <h2 class="font-hand text-5xl font-bold mb-6">
+
+                    Hello! I'm
+
+                    <span class="marker-underline">
+                        Moonfros
+                    </span>
+
+                </h2>
+
+                <p class="text-gray-300 text-lg leading-relaxed mb-6">
+
+                    I'm an animator who loves turning drawings, ideas and
+                    questionable amounts of time into little moving stories.
+
+                </p>
+
+                <p class="text-gray-300 text-lg leading-relaxed mb-8">
+
+                    From tiny Shorts to longer projects, I'm interested in
+                    animation that feels expressive, personal and alive.
+
+                </p>
+
+                <div class="grid grid-cols-2 gap-5">
+
+                    <div class="skill">
+                        <i class="fa-solid fa-pen-nib"></i>
+                        <span>Character Design</span>
+                    </div>
+
+                    <div class="skill">
+                        <i class="fa-solid fa-film"></i>
+                        <span>Storyboarding</span>
+                    </div>
+
+                    <div class="skill">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        <span>2D Animation</span>
+                    </div>
+
+                    <div class="skill">
+                        <i class="fa-solid fa-video"></i>
+                        <span>Motion & Editing</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FEATURED ANIMATIONS
+========================================================= -->
+
+<section id="portfolio" class="section bg-moon-900">
+
+    <div class="max-w-7xl mx-auto px-6">
+
+        <div class="text-center mb-14 reveal">
+
+            <p class="section-label">
+                THE MAIN EVENT
+            </p>
+
+            <h2 class="section-title">
+                Featured
+                <span class="text-moon-glow">Animations</span>
+            </h2>
+
+            <p class="section-description">
+                Longer pieces, finished projects and animations I'm especially proud of.
             </p>
 
         </div>
 
-    </footer>
+        <!-- Generated by JavaScript -->
+        <div
+            id="animations-grid"
+            class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+        ></div>
 
+        <div class="text-center mt-12">
 
-    <!-- ================================
-         JAVASCRIPT
-    ================================= -->
+            <a
+                href="https://www.youtube.com/@Mooncananimate"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="youtube-link"
+            >
+                See more on YouTube
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
 
-    <script>
+        </div>
 
-        /* =================================
-           YEAR
-        ================================= */
+    </div>
 
-        document.getElementById('year').textContent =
-            new Date().getFullYear();
+</section>
 
 
-        /* =================================
-           CONTACT FORM
-        ================================= */
+<!-- =========================================================
+     SHORTS
+========================================================= -->
 
-        const form = document.getElementById('contact-form');
-        const submitBtn = document.getElementById('submit-btn');
-        const successMessage = document.getElementById('success-message');
-        const sendAnother = document.getElementById('send-another');
+<section id="shorts" class="section shorts-section">
 
-        form.addEventListener('submit', async function(event) {
+    <div class="max-w-7xl mx-auto px-6">
 
-            event.preventDefault();
+        <div class="text-center mb-14 reveal">
 
-            const originalText =
-                submitBtn.querySelector('span').textContent;
+            <p class="section-label">
+                QUICK STORIES
+            </p>
 
-            submitBtn.disabled = true;
+            <h2 class="section-title">
+                Shorts
+                <span class="text-moon-accent">& Experiments</span>
+            </h2>
 
-            submitBtn.querySelector('span').textContent =
-                'Sending...';
+            <p class="section-description">
+                Little animations, jokes, experiments and other things that escaped the sketchbook.
+            </p>
 
-            try {
+        </div>
 
-                const response = await fetch(
-                    form.action,
-                    {
-                        method: 'POST',
-                        body: new FormData(form),
-                        headers: {
-                            'Accept': 'application/json'
-                        }
-                    }
-                );
+        <div
+            id="shorts-grid"
+            class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5"
+        ></div>
 
-                if (response.ok) {
+    </div>
 
-                    form.reset();
+</section>
 
-                    successMessage.classList.remove('hidden');
-                    successMessage.classList.add('flex');
 
-                } else {
+<!-- =========================================================
+     UPCOMING PROJECTS
+========================================================= -->
 
-                    throw new Error('Form submission failed');
+<section id="upcoming" class="section bg-moon-800">
 
-                }
+    <div class="max-w-7xl mx-auto px-6">
 
-            } catch (error) {
+        <div class="flex flex-col md:flex-row justify-between md:items-end gap-5 mb-12 reveal">
 
-                alert(
-                    'Something went wrong. Please try again.'
-                );
+            <div>
 
-            } finally {
+                <p class="section-label">
+                    CURRENTLY COOKING
+                </p>
 
-                submitBtn.disabled = false;
+                <h2 class="section-title">
+                    Upcoming
+                    <span class="text-moon-accent">Projects</span>
+                </h2>
 
-                submitBtn.querySelector('span').textContent =
-                    originalText;
+                <p class="section-description md:text-left">
+                    Things that aren't finished yet. That's usually where the fun starts.
+                </p>
 
-            }
+            </div>
 
-        });
+            <div class="hidden md:block text-5xl opacity-30">
+                🚀
+            </div>
 
+        </div>
 
-        sendAnother.addEventListener('click', function() {
+        <div
+            id="upcoming-grid"
+            class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+        ></div>
 
-            successMessage.classList.add('hidden');
-            successMessage.classList.remove('flex');
+    </div>
 
-        });
+</section>
 
 
-        /* =================================
-           MOBILE MENU
-        ================================= */
+<!-- =========================================================
+     BEHIND THE SCENES
+========================================================= -->
 
-        const mobileMenuButton =
-            document.getElementById('mobile-menu-btn');
+<section id="process" class="section bg-moon-900">
 
-        const mobileMenu =
-            document.getElementById('mobile-menu');
+    <div class="max-w-7xl mx-auto px-6">
 
-        const mobileLinks =
-            document.querySelectorAll('.mobile-link');
+        <div class="text-center mb-14 reveal">
 
-        mobileMenuButton.addEventListener('click', function() {
+            <p class="section-label">
+                UNDER THE HOOD
+            </p>
 
-            const isOpen =
-                !mobileMenu.classList.contains('hidden');
+            <h2 class="section-title">
+                Behind the
+                <span class="text-moon-glow">Scenes</span>
+            </h2>
 
-            mobileMenu.classList.toggle('hidden');
+            <p class="section-description">
+                Sketches, storyboards, rough animation and the beautiful chaos between idea and final frame.
+            </p>
 
-            mobileMenuButton.setAttribute(
-                'aria-expanded',
-                String(!isOpen)
-            );
+        </div>
 
-            mobileMenuButton.innerHTML = !isOpen
-                ? '<i class="fa-solid fa-xmark text-2xl"></i>'
-                : '<i class="fa-solid fa-bars text-2xl"></i>';
+        <div
+            id="bts-grid"
+            class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
+        ></div>
 
-        });
+    </div>
 
+</section>
 
-        mobileLinks.forEach(link => {
 
-            link.addEventListener('click', function() {
+<!-- =========================================================
+     CONTACT
+========================================================= -->
 
-                mobileMenu.classList.add('hidden');
+<section id="contact" class="section contact-section">
 
-                mobileMenuButton.setAttribute(
-                    'aria-expanded',
-                    'false'
-                );
+    <div class="max-w-5xl mx-auto px-6 relative z-10">
 
-                mobileMenuButton.innerHTML =
-                    '<i class="fa-solid fa-bars text-2xl"></i>';
+        <div class="text-center mb-14 reveal">
 
-            });
+            <p class="section-label">
+                SAY HELLO
+            </p>
 
-        });
+            <h2 class="section-title">
+                Let's Create
+                <span class="text-moon-accent">Something</span>
+            </h2>
 
+            <p class="section-description">
+                Available for freelance projects, commissions and collaborations.
+            </p>
 
-        /* =================================
-           STAR FIELD
-        ================================= */
+        </div>
 
-        const canvas =
-            document.getElementById('star-canvas');
 
-        const ctx =
-            canvas.getContext('2d');
+        <div class="glass-card rounded-3xl p-7 md:p-10 reveal">
 
-        let stars = [];
+            <div class="grid md:grid-cols-2 gap-10">
 
-        function resizeCanvas() {
+                <!-- Socials -->
+                <div>
 
-            canvas.width =
-                window.innerWidth;
+                    <h3 class="text-2xl font-bold mb-6">
+                        Find me on
+                    </h3>
 
-            canvas.height =
-                window.innerHeight;
+                    <div class="grid grid-cols-2 gap-4">
 
-            createStars();
+                        <a
+                            href="https://www.youtube.com/@Mooncananimate"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="social-card youtube"
+                        >
+                            <i class="fa-brands fa-youtube"></i>
+                            <span>YouTube</span>
+                        </a>
 
-        }
+                        <a
+                            href="https://www.instagram.com/mooncananimate/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="social-card instagram"
+                        >
+                            <i class="fa-brands fa-instagram"></i>
+                            <span>Instagram</span>
+                        </a>
 
+                        <a
+                            href="https://www.tiktok.com/@mooncananimate"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="social-card tiktok"
+                        >
+                            <i class="fa-brands fa-tiktok"></i>
+                            <span>TikTok</span>
+                        </a>
 
-        class Star {
+                        <a
+                            href="https://web.facebook.com/profile.php?id=61555526380400"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="social-card facebook"
+                        >
+                            <i class="fa-brands fa-facebook"></i>
+                            <span>Facebook</span>
+                        </a>
 
-            constructor() {
+                    </div>
 
-                this.x =
-                    Math.random() * canvas.width;
+                    <div class="quote-card mt-7">
 
-                this.y =
-                    Math.random() * canvas.height;
+                        <i class="fa-solid fa-quote-left text-moon-glow mb-3"></i>
 
-                this.size =
-                    Math.random() * 1.6 + .2;
+                        <p>
+                            Animation is just drawings learning how to breathe.
+                        </p>
 
-                this.opacity =
-                    Math.random() * .8 + .2;
+                    </div>
 
-                this.speed =
-                    Math.random() * .035 + .01;
+                </div>
 
-                this.direction =
-                    Math.random() > .5 ? 1 : -1;
 
-            }
+                <!-- Contact Form -->
+                <form
+                    id="contact-form"
+                    action="https://formspree.io/f/xnjjnqpp"
+                    method="POST"
+                    class="space-y-5"
+                >
 
+                    <div>
 
-            update() {
+                        <label>Name</label>
 
-                this.opacity +=
-                    .004 * this.direction;
+                        <input
+                            type="text"
+                            name="name"
+                            required
+                            placeholder="Your name"
+                        >
 
-                if (this.opacity >= 1) {
+                    </div>
 
-                    this.opacity = 1;
-                    this.direction = -1;
+                    <div>
 
-                }
+                        <label>Email</label>
 
-                if (this.opacity <= .2) {
+                        <input
+                            type="email"
+                            name="email"
+                            required
+                            placeholder="hello@example.com"
+                        >
 
-                    this.opacity = .2;
-                    this.direction = 1;
+                    </div>
 
-                }
+                    <div>
 
-                this.y -= this.speed;
+                        <label>Message</label>
 
-                if (this.y < 0) {
+                        <textarea
+                            rows="5"
+                            name="message"
+                            required
+                            placeholder="Tell me about your project..."
+                        ></textarea>
 
-                    this.y = canvas.height;
+                    </div>
 
-                    this.x =
-                        Math.random() * canvas.width;
+                    <button
+                        id="submit-btn"
+                        type="submit"
+                        class="submit-button"
+                    >
+                        <span>Send Message</span>
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
 
-                }
+                    <p
+                        id="form-status"
+                        class="text-sm text-center hidden"
+                    ></p>
 
-            }
+                </form>
 
+            </div>
 
-            draw() {
+        </div>
 
-                ctx.fillStyle =
-                    `rgba(255,255,255,${this.opacity})`;
+    </div>
 
-                ctx.beginPath();
+</section>
 
-                ctx.arc(
-                    this.x,
-                    this.y,
-                    this.size,
-                    0,
-                    Math.PI * 2
-                );
 
-                ctx.fill();
+<!-- =========================================================
+     FOOTER
+========================================================= -->
 
-            }
+<footer>
 
-        }
+    <div class="max-w-7xl mx-auto px-6 py-8">
 
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
 
-        function createStars() {
+            <div class="flex items-center gap-3">
 
-            stars = [];
+                <i class="fa-solid fa-moon text-moon-accent"></i>
 
-            const area =
-                canvas.width * canvas.height;
+                <span class="font-hand text-xl font-bold">
+                    Mooncananimate
+                </span>
 
-            /*
-                Lower density on smaller screens
-                to keep mobile performance healthy.
-            */
+            </div>
 
-            const density =
-                window.innerWidth < 768
-                    ? 9000
-                    : 6500;
+            <p class="text-gray-600 text-sm">
+                © <span id="current-year"></span> Mooncananimate
+            </p>
 
-            const count =
-                Math.floor(area / density);
+        </div>
 
-            for (let i = 0; i < count; i++) {
+    </div>
 
-                stars.push(new Star());
+</footer>
 
-            }
 
-        }
-
-
-        function animateStars() {
-
-            ctx.clearRect(
-                0,
-                0,
-                canvas.width,
-                canvas.height
-            );
-
-            stars.forEach(star => {
-
-                star.update();
-                star.draw();
-
-            });
-
-            requestAnimationFrame(animateStars);
-
-        }
-
-
-        window.addEventListener(
-            'resize',
-            resizeCanvas
-        );
-
-        resizeCanvas();
-        animateStars();
-
-
-        /* =================================
-           SCROLL REVEALS
-        ================================= */
-
-        const observer =
-            new IntersectionObserver(
-                entries => {
-
-                    entries.forEach(entry => {
-
-                        if (entry.isIntersecting) {
-
-                            entry.target.classList.add('active');
-
-                            observer.unobserve(
-                                entry.target
-                            );
-
-                        }
-
-                    });
-
-                },
-                {
-                    threshold: .1,
-                    rootMargin: '0px 0px -40px 0px'
-                }
-            );
-
-
-        document
-            .querySelectorAll('.reveal')
-            .forEach(element => {
-
-                observer.observe(element);
-
-            });
-
-
-        /* =================================
-           NAVBAR
-        ================================= */
-
-        const navbar =
-            document.getElementById('navbar');
-
-        window.addEventListener(
-            'scroll',
-            function() {
-
-                if (window.scrollY > 40) {
-
-                    navbar.classList.add(
-                        'shadow-lg'
-                    );
-
-                    navbar.style.background =
-                        'rgba(15,23,42,.94)';
-
-                } else {
-
-                    navbar.classList.remove(
-                        'shadow-lg'
-                    );
-
-                    navbar.style.background =
-                        'rgba(15,23,42,.72)';
-
-                }
-
-            }
-        );
-
-    </script>
+<!-- JavaScript -->
+<script src="script.js"></script>
 
 </body>
 </html>
